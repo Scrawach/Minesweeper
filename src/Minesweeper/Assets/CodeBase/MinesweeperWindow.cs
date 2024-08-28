@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,13 +13,14 @@ namespace CodeBase
         private RectTransform _gridRect;
 
 
-        private void Start()
+        private void Awake()
         {
             _window = GetComponent<RectTransform>();
             _gridRect = _grid.GetComponent<RectTransform>();
-            
-            Initialize(new Board(3, 8));
         }
+
+        private void Start() => 
+            Initialize(new Board(3, 8));
 
         public void Initialize(Board board)
         {
