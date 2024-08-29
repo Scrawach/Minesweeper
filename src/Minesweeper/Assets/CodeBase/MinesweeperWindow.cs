@@ -35,19 +35,19 @@ namespace CodeBase
 
         private void FitWindowForBoardWith(int width, int height)
         {
-            var cellSize = _grid.cellSize;
-            var cellPadding = _grid.padding;
-            var cellSpacing = _grid.spacing;
+            var size = _grid.cellSize;
+            var padding = _grid.padding;
+            var spacing = _grid.spacing;
             var sizeDelta = _gridRect.sizeDelta;
 
-            var desiredBoardWidth = (cellPadding.left + cellPadding.right)
-                                    + cellSize.x * width
-                                    + cellSpacing.x * (width - 1)
+            var desiredBoardWidth = (padding.left + padding.right)
+                                    + size.x * width
+                                    + spacing.x * (width - 1)
                                     - sizeDelta.x;
 
-            var desiredBoardHeight = cellPadding.top + cellPadding.bottom
-                                     + cellSize.y * height
-                                     + cellSpacing.y * (height - 1)
+            var desiredBoardHeight = padding.top + padding.bottom
+                                     + size.y * height
+                                     + spacing.y * (height - 1)
                                      - sizeDelta.y;
             
             _window.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, desiredBoardWidth);
