@@ -1,14 +1,32 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace CodeBase
 {
-    public class CellBehaviour : MonoBehaviour, IPointerClickHandler
+    public class CellBehaviour : MonoBehaviour
     {
-        public void OnPointerClick(PointerEventData eventData)
+        [SerializeField] private Image _image;
+        
+        [SerializeField] private Sprite _unknownTile;
+        [SerializeField] private Sprite _emptyTile;
+        [SerializeField] private Sprite _flagTile;
+
+        private Cell _cell;
+        
+        public void Construct(Cell cell)
         {
-            Debug.Log("Clicked!");
+            _cell = cell;
+            _cell.Changed += OnCellChanged;
+        }
+
+        private void OnDestroy()
+        {
+            _cell.Changed -= OnCellChanged;
+        }
+
+        private void OnCellChanged()
+        {
+            
         }
     }
 }

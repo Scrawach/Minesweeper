@@ -20,7 +20,7 @@ namespace CodeBase
         }
 
         private void Start() => 
-            Initialize(new Board(3, 8));
+            Initialize(new Board(6, 6));
 
         public void Initialize(Board board)
         {
@@ -29,7 +29,9 @@ namespace CodeBase
             for (var y = 0; y < board.Height; y++)
             for (var x = 0; x < board.Width; x++)
             {
-                Instantiate(_cellPrefab, Vector3.zero, Quaternion.identity, _grid.transform);
+                var cell = board[x, y];
+                var cellBehaviour = Instantiate(_cellPrefab, Vector3.zero, Quaternion.identity, _grid.transform);
+                cellBehaviour.Construct(cell);
             }
         }
 
