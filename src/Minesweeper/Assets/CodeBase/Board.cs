@@ -15,6 +15,9 @@ namespace CodeBase
             Width = width;
             Height = height;
             _cells = new Cell[Width * Height];
+
+            for (var x = 0; x < width * height; x++) 
+                _cells[x] = new Cell();
         }
 
         public Cell this[int x, int y] => 

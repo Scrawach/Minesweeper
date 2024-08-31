@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace CodeBase
 {
-    public class MinesweeperWindow : MonoBehaviour
+    public class MinesweeperWindow : MonoBehaviour, IPointerDownHandler
     {
         [SerializeField] private GridLayoutGroup _grid;
         [SerializeField] private CellBehaviour _cellPrefab;
@@ -54,6 +55,12 @@ namespace CodeBase
             
             _window.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, desiredBoardWidth);
             _window.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, desiredBoardHeight);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            Debug.Log($"{_grid.transform.position}");
+            Debug.Log($"Clicked at {eventData.pointerClick}");
         }
     }
 }

@@ -10,5 +10,11 @@ namespace CodeBase
         public bool HasMine;
 
         public event Action Changed;
+
+        public void Open()
+        {
+            IsReveal = true;
+            Changed?.Invoke();
+        }
     }
 }
