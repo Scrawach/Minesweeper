@@ -15,13 +15,13 @@ namespace CodeBase
             Width = width;
             Height = height;
             _cells = new Cell[Width * Height];
-
-            for (var x = 0; x < width * height; x++) 
-                _cells[x] = new Cell();
         }
 
-        public Cell this[int x, int y] => 
-            _cells[x + y * Width];
+        public Cell this[int x, int y]
+        {
+            get => _cells[x + y * Width];
+            set => _cells[x + y * Width] = value;
+        }
 
         public bool Contains(int x, int y) =>
             x >= 0 && x < Width && y >= 0 && y < Height;
