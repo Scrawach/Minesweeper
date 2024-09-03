@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CodeBase
 {
@@ -21,6 +22,12 @@ namespace CodeBase
         {
             get => _cells[x + y * Width];
             set => _cells[x + y * Width] = value;
+        }
+
+        public Cell this[Vector2Int position]
+        {
+            get => this[position.x, position.y];
+            set => this[position.x, position.y] = value;
         }
 
         public bool Contains(int x, int y) =>

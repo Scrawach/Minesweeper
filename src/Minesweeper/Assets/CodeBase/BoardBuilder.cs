@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace CodeBase
 {
     public sealed class BoardBuilder
@@ -8,7 +10,7 @@ namespace CodeBase
             
             for (var x = 0; x < width; x++)
             for (var y = 0; y < height; y++)
-                board[x, y] = new Cell();
+                board[x, y] = new Cell(new Vector2Int(x, y));
 
             return board;
         }
