@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace CodeBase
 {
-    public class CellBehaviour : MonoBehaviour
+    public class CellBehaviour : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private Image _image;
         
@@ -11,22 +13,22 @@ namespace CodeBase
         [SerializeField] private Sprite _emptyTile;
         [SerializeField] private Sprite _flagTile;
 
-        private Cell _cell;
-        
-        public void Construct(Cell cell)
-        {
-            _cell = cell;
-            _cell.Changed += OnCellChanged;
-        }
+        private Vector2Int _position;
 
-        private void OnDestroy()
-        {
-            _cell.Changed -= OnCellChanged;
-        }
+        public event Action<Vector2Int> Clicked; 
 
-        private void OnCellChanged()
+        public void Construct(Vector2Int position) => 
+            _position = position;
+
+        public void Click() => 
+            Clicked?.Invoke(_position);
+
+        public void Redraw(Cell cell)
         {
             
         }
+        
+        public void OnPointerClick(PointerEventData eventData) =>
+            Click();
     }
 }

@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace CodeBase
 {
-    public class MinesweeperGame
+    public class Game
     {
         private readonly Board _board;
 
-        public MinesweeperGame(Board board) => 
+        public Game(Board board) => 
             _board = board;
 
         public void Open(Vector2Int position)
@@ -15,7 +15,7 @@ namespace CodeBase
                 return;
 
             var cell = _board[position.x, position.y];
-            cell.Open();
+            cell.IsReveal = true;
 
             if (cell.HasMine) 
                 GameOver();

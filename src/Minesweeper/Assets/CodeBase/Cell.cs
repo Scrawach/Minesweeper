@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace CodeBase
@@ -14,13 +13,5 @@ namespace CodeBase
             Position = position;
 
         public Vector2Int Position { get; }
-
-        public event Action Changed;
-
-        public void Open()
-        {
-            IsReveal = true;
-            Changed?.Invoke();
-        }
     }
 }

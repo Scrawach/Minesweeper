@@ -13,6 +13,7 @@ namespace CodeBase
         private RectTransform _window;
         private RectTransform _gridRect;
 
+        private Game _game;
 
         private void Awake()
         {
@@ -21,10 +22,11 @@ namespace CodeBase
         }
 
         private void Start() => 
-            Initialize(new Board(6, 6));
+            Initialize(new BoardBuilder().Build(6, 6));
 
         public void Initialize(Board board)
         {
+            _game = new Game(board);
             FitWindowForBoardWith(board.Width, board.Height);
 
             for (var y = 0; y < board.Height; y++)
@@ -32,8 +34,16 @@ namespace CodeBase
             {
                 var cell = board[x, y];
                 var cellBehaviour = Instantiate(_cellPrefab, Vector3.zero, Quaternion.identity, _grid.transform);
-                cellBehaviour.Construct(cell);
+                cellBehaviour.Clicked += OnCellClicked;
+                cellBehaviour.Construct(cell.Position);
             }
+        }
+
+        private void OnCellClicked(Vector2Int position)
+        {
+            _game.Open(position);
+            
+            
         }
 
         private void FitWindowForBoardWith(int width, int height)
