@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ namespace CodeBase
         private RectTransform _gridRect;
 
         private Game _game;
+        private Dictionary<Vector2Int, CellBehaviour> _views;
 
         private void Awake()
         {
@@ -21,29 +23,36 @@ namespace CodeBase
             _gridRect = _grid.GetComponent<RectTransform>();
         }
 
-        private void Start() => 
-            Initialize(new BoardBuilder().Build(6, 6));
+        private void Start()
+        {
+            _game = new Game(new BoardBuilder());
+            _game.Start(6, 6);
+            Initialize(_game.Board);
+        }
 
         public void Initialize(Board board)
         {
-            _game = new Game(board);
             FitWindowForBoardWith(board.Width, board.Height);
+            _views = new Dictionary<Vector2Int, CellBehaviour>(board.Width * board.Height);
 
-            for (var y = 0; y < board.Height; y++)
-            for (var x = 0; x < board.Width; x++)
+            foreach (var cell in board)
             {
-                var cell = board[x, y];
                 var cellBehaviour = Instantiate(_cellPrefab, Vector3.zero, Quaternion.identity, _grid.transform);
                 cellBehaviour.Clicked += OnCellClicked;
                 cellBehaviour.Construct(cell.Position);
+                _views[cell.Position] = cellBehaviour;
             }
         }
 
         private void OnCellClicked(Vector2Int position)
         {
+            Debug.Log($"{position}");
             _game.Open(position);
-            
-            
+
+            foreach (var cell in _game.Board)
+            {
+                _views[cell.Position].Redraw(cell);
+            }
         }
 
         private void FitWindowForBoardWith(int width, int height)

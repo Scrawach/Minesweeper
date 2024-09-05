@@ -4,10 +4,17 @@ namespace CodeBase
 {
     public class Game
     {
-        private readonly Board _board;
+        private readonly BoardBuilder _builder;
+        
+        private Board _board;
 
-        public Game(Board board) => 
-            _board = board;
+        public Game(BoardBuilder builder) => 
+            _builder = builder;
+
+        public Board Board => _board;
+        
+        public void Start(int width, int height) => 
+            _board = _builder.Build(width, height);
 
         public void Open(Vector2Int position)
         {
