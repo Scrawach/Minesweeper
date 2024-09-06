@@ -25,7 +25,10 @@ namespace CodeBase
 
         public void Redraw(Cell cell)
         {
-            
+            if (cell.IsReveal)
+            {
+                _image.sprite = _emptyTile;
+            }
         }
         
         public void OnPointerClick(PointerEventData eventData) =>
