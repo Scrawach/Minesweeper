@@ -8,10 +8,14 @@ namespace CodeBase
     public class CellBehaviour : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private Image _image;
+        [SerializeField] private Text _amountOfMinesText;
         
         [SerializeField] private Sprite _unknownTile;
         [SerializeField] private Sprite _emptyTile;
         [SerializeField] private Sprite _flagTile;
+        
+        [SerializeField] private Sprite _bombedTile;
+        [SerializeField] private Sprite _bombTile;
 
         private Vector2Int _position;
 
@@ -25,9 +29,16 @@ namespace CodeBase
 
         public void Redraw(Cell cell)
         {
+            _amountOfMinesText.text = cell.AmountOfMinesAround == 0? "" : cell.AmountOfMinesAround.ToString();
+
+            if (cell.IsFlagged)
+            {
+                _image.sprite = _flagTile;
+            }
+            
             if (cell.IsReveal)
             {
-                _image.sprite = _emptyTile;
+                _image.sprite = cell.HasMine ? _bombTile : _emptyTile;
             }
         }
         
