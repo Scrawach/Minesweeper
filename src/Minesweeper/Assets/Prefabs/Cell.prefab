@@ -94,6 +94,8 @@ MonoBehaviour:
   _unknownTile: {fileID: 21300000, guid: 9013a364c89fe2e8e93f1005cd793faa, type: 3}
   _emptyTile: {fileID: 21300000, guid: 2c3d2c7aa6436f40ab3fefdc51d6ebcb, type: 3}
   _flagTile: {fileID: 21300000, guid: 5b81c9f5c84e0a97094c98fbfa212aef, type: 3}
+  _bombedTile: {fileID: 21300000, guid: e74e4414e5ceebf3db202eec4664b302, type: 3}
+  _bombTile: {fileID: 21300000, guid: e74e4414e5ceebf3db202eec4664b302, type: 3}
 --- !u!1 &6891068221571498083
 GameObject:
   m_ObjectHideFlags: 0
