@@ -29,16 +29,19 @@ namespace CodeBase
 
         public void Redraw(Cell cell)
         {
-            _amountOfMinesText.text = cell.AmountOfMinesAround == 0? "" : cell.AmountOfMinesAround.ToString();
-
             if (cell.IsFlagged)
             {
                 _image.sprite = _flagTile;
             }
-            
-            if (cell.IsReveal)
+
+            if (cell.IsReveal && cell.HasMine)
             {
-                _image.sprite = cell.HasMine ? _bombTile : _emptyTile;
+                _image.sprite = _bombTile;
+            }
+            else if (cell.IsReveal)
+            {
+                _image.sprite = _emptyTile;
+                _amountOfMinesText.text = cell.AmountOfMinesAround == 0? "" : cell.AmountOfMinesAround.ToString();
             }
         }
         
