@@ -30,12 +30,17 @@ namespace CodeBase
         
         public void Mark(Vector2Int position)
         {
-            
+            _board[position].IsFlagged = true;
         }
         
         private void GameOver()
         {
             Debug.Log("Game Over!");
+        }
+
+        public void OpenArea(Vector2Int position)
+        {
+            Debug.Log($"OPEN AREA!");
         }
     }
 }

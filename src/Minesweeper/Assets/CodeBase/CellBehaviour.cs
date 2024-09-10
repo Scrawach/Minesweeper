@@ -19,7 +19,9 @@ namespace CodeBase
 
         private Vector2Int _position;
 
-        public event Action<Vector2Int> Clicked; 
+        public event Action<Vector2Int> Clicked;
+        public event Action<Vector2Int> Marked;
+        public event Action<Vector2Int> DoubleClicked; 
 
         public void Construct(Vector2Int position) => 
             _position = position;
@@ -45,7 +47,20 @@ namespace CodeBase
             }
         }
         
-        public void OnPointerClick(PointerEventData eventData) =>
-            Click();
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            switch (eventData.button)
+            {
+                case PointerEventData.InputButton.Middle:
+                    DoubleClicked?.Invoke(_position);
+                    break;
+                case PointerEventData.InputButton.Left:
+                    Clicked?.Invoke(_position);
+                    break;
+                case PointerEventData.InputButton.Right:
+                    Marked?.Invoke(_position);
+                    break;
+            }
+        }
     }
 }

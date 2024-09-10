@@ -39,6 +39,8 @@ namespace CodeBase
             {
                 var cellBehaviour = Instantiate(_cellPrefab, Vector3.zero, Quaternion.identity, _grid.transform);
                 cellBehaviour.Clicked += OnCellClicked;
+                cellBehaviour.Marked += OnMarkClicked;
+                cellBehaviour.DoubleClicked += OnDoubleClicked;
                 cellBehaviour.Construct(cell.Position);
                 _views[cell.Position] = cellBehaviour;
             }
@@ -49,6 +51,26 @@ namespace CodeBase
             Debug.Log($"{position}");
             _game.Open(position);
 
+            foreach (var cell in _game.Board)
+            {
+                _views[cell.Position].Redraw(cell);
+            }
+        }
+
+        private void OnMarkClicked(Vector2Int position)
+        {
+            _game.Mark(position);
+            
+            foreach (var cell in _game.Board)
+            {
+                _views[cell.Position].Redraw(cell);
+            }
+        }
+
+        private void OnDoubleClicked(Vector2Int position)
+        {
+            _game.OpenArea(position);
+            
             foreach (var cell in _game.Board)
             {
                 _views[cell.Position].Redraw(cell);
