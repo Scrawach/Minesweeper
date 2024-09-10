@@ -35,6 +35,10 @@ namespace CodeBase
             {
                 _image.sprite = _flagTile;
             }
+            else
+            {
+                _image.sprite = _unknownTile;
+            }
 
             if (cell.IsReveal && cell.HasMine)
             {

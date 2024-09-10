@@ -30,7 +30,7 @@ namespace CodeBase
         
         public void Mark(Vector2Int position)
         {
-            _board[position].IsFlagged = true;
+            _board[position].IsFlagged = !_board[position].IsFlagged;
         }
         
         private void GameOver()
