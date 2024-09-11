@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CodeBase
@@ -26,6 +27,8 @@ namespace CodeBase
 
             if (cell.HasMine) 
                 GameOver();
+            else
+                CascadeOpen(position);
         }
         
         public void Mark(Vector2Int position)
@@ -41,6 +44,30 @@ namespace CodeBase
         public void OpenArea(Vector2Int position)
         {
             Debug.Log($"OPEN AREA!");
+        }
+
+        private void CascadeOpen(Vector2Int startPosition)
+        {
+            foreach (var neighbour in GetNeighbours(startPosition))
+            {
+                if (neighbour.AmountOfMinesAround == 0 && !neighbour.HasMine)
+                {
+                    neighbour.IsReveal = true;
+                    CascadeOpen(neighbour.Position);
+                }
+            }
+        }
+
+        private IEnumerable<Cell> GetNeighbours(Vector2Int position)
+        {
+            for (var x = position.x - 1; x < position.x + 2; x++)
+            for (var y = position.y - 1; y < position.y + 2; y++)
+            {
+                if (_board.Contains(x, y))
+                {
+                    yield return _board[x, y];
+                }
+            }
         }
     }
 }
