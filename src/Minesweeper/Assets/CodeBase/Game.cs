@@ -27,7 +27,8 @@ namespace CodeBase
 
             if (cell.HasMine) 
                 GameOver();
-            else
+            
+            else if (cell.AmountOfMinesAround == 0)
                 CascadeOpen(position);
         }
         
