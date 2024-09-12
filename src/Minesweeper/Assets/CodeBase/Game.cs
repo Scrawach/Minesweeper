@@ -50,7 +50,7 @@ namespace CodeBase
         {
             foreach (var neighbour in GetNeighbours(startPosition))
             {
-                if (neighbour.AmountOfMinesAround == 0 && !neighbour.HasMine)
+                if (neighbour.AmountOfMinesAround == 0 && !neighbour.HasMine && !neighbour.IsReveal)
                 {
                     neighbour.IsReveal = true;
                     CascadeOpen(neighbour.Position);
