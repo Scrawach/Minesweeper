@@ -49,7 +49,7 @@ namespace CodeBase
 
         private void CascadeOpen(Vector2Int startPosition)
         {
-            foreach (var neighbour in GetNeighbours(startPosition))
+            foreach (var neighbour in _board.GetNeighbours(startPosition))
             {
                 if (!neighbour.HasMine && !neighbour.IsReveal)
                 {
@@ -57,18 +57,6 @@ namespace CodeBase
                     
                     if (neighbour.AmountOfMinesAround == 0)
                         CascadeOpen(neighbour.Position);
-                }
-            }
-        }
-
-        private IEnumerable<Cell> GetNeighbours(Vector2Int position)
-        {
-            for (var x = position.x - 1; x < position.x + 2; x++)
-            for (var y = position.y - 1; y < position.y + 2; y++)
-            {
-                if (_board.Contains(x, y))
-                {
-                    yield return _board[x, y];
                 }
             }
         }

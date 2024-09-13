@@ -39,13 +39,12 @@ namespace CodeBase
 
         public void IncrementMinesAmountAround(Board board, int x, int y)
         {
-            for (var i = x - 1; i < x + 2; i++)
-            for (var j = y - 1; j < y + 2; j++)
+            foreach (var cell in board.GetNeighbours(new Vector2Int(x, y)))
             {
-                if (board.Contains(i, j) && !board[i,j].HasMine)
-                {
-                    board[i, j].AmountOfMinesAround++;
-                }
+                if (cell.HasMine)
+                    continue;
+
+                cell.AmountOfMinesAround++;
             }
         }
     }
