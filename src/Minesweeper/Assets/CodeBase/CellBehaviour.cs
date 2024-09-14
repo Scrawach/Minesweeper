@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace CodeBase
 {
-    public class CellBehaviour : MonoBehaviour, IPointerClickHandler
+    public class CellBehaviour : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
     {
         [SerializeField] private Image _image;
         [SerializeField] private Text _amountOfMinesText;
@@ -21,6 +21,7 @@ namespace CodeBase
 
         public event Action<Vector2Int> Clicked;
         public event Action<Vector2Int> Marked;
+        public event Action<Vector2Int> MovesDisplayed;
         public event Action<Vector2Int> DoubleClicked; 
 
         public void Construct(Vector2Int position) => 
@@ -65,6 +66,12 @@ namespace CodeBase
                     Marked?.Invoke(_position);
                     break;
             }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Middle)
+                MovesDisplayed?.Invoke(_position);
         }
     }
 }
