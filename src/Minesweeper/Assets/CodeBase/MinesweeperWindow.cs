@@ -50,12 +50,14 @@ namespace CodeBase
 
         private void OnMovesUndisplayed(Vector2Int position)
         {
-            
+            foreach (var neighbour in _game.Board.GetNeighbours(position)) 
+                _views[neighbour.Position].UndisplayAsEmpty();
         }
 
         private void OnMovesDisplayed(Vector2Int position)
         {
-            
+            foreach (var neighbour in _game.Board.GetNeighbours(position)) 
+                _views[neighbour.Position].DisplayAsEmpty();
         }
 
         private void OnCellClicked(Vector2Int position)

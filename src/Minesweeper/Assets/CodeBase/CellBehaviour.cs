@@ -57,12 +57,15 @@ namespace CodeBase
         public void DisplayAsEmpty()
         {
             _cachedSprite = _image.sprite;
-            _image.sprite = _emptyTile;
+            
+            if (_cachedSprite == _unknownTile)
+                _image.sprite = _emptyTile;
         }
 
         public void UndisplayAsEmpty()
         {
-            _image.sprite = _cachedSprite;
+            if (_cachedSprite != null)
+                _image.sprite = _cachedSprite;
         }
         
         public void OnPointerClick(PointerEventData eventData)
