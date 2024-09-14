@@ -42,13 +42,20 @@ namespace CodeBase
                 cellBehaviour.Marked += OnMarkClicked;
                 cellBehaviour.DoubleClicked += OnDoubleClicked;
                 cellBehaviour.MovesDisplayed += OnMovesDisplayed;
+                cellBehaviour.MovesUndisplayed += OnMovesUndisplayed;
                 cellBehaviour.Construct(cell.Position);
                 _views[cell.Position] = cellBehaviour;
             }
         }
 
+        private void OnMovesUndisplayed(Vector2Int position)
+        {
+            
+        }
+
         private void OnMovesDisplayed(Vector2Int position)
         {
+            
         }
 
         private void OnCellClicked(Vector2Int position)

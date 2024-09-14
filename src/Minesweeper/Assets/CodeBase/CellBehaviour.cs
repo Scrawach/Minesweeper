@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace CodeBase
 {
-    public class CellBehaviour : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
+    public class CellBehaviour : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField] private Image _image;
         [SerializeField] private Text _amountOfMinesText;
@@ -18,9 +18,11 @@ namespace CodeBase
         [SerializeField] private Sprite _bombTile;
 
         private Vector2Int _position;
+        private Sprite _cachedSprite;
 
         public event Action<Vector2Int> Clicked;
         public event Action<Vector2Int> Marked;
+        public event Action<Vector2Int> MovesUndisplayed;
         public event Action<Vector2Int> MovesDisplayed;
         public event Action<Vector2Int> DoubleClicked; 
 
@@ -51,6 +53,17 @@ namespace CodeBase
                 _amountOfMinesText.text = cell.AmountOfMinesAround == 0? "" : cell.AmountOfMinesAround.ToString();
             }
         }
+
+        public void DisplayAsEmpty()
+        {
+            _cachedSprite = _image.sprite;
+            _image.sprite = _emptyTile;
+        }
+
+        public void UndisplayAsEmpty()
+        {
+            _image.sprite = _cachedSprite;
+        }
         
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -72,6 +85,12 @@ namespace CodeBase
         {
             if (eventData.button == PointerEventData.InputButton.Middle)
                 MovesDisplayed?.Invoke(_position);
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Middle)
+                MovesUndisplayed?.Invoke(_position);
         }
     }
 }
